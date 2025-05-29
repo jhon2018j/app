@@ -3,12 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <title>Indicadores Económicos</title>
-    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #f0f2f5, #d9e4f5);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 40px;
+            font-size: 2.5em;
+            color: #2c3e50;
+        }
+
+        .indicador-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            padding: 25px;
+            width: 300px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card i {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: #3498db;
+        }
+
+        .card h2 {
+            margin: 10px 0 5px;
+            font-size: 22px;
+            color: #333;
+        }
+
+        .card p {
+            font-size: 20px;
+            color: #27ae60;
+        }
+
+        button {
+            margin-top: 50px;
+            padding: 12px 25px;
+            font-size: 18px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
 <body>
     <h1>📊 Indicadores Económicos</h1>
-    <div id="indicadores" style="font-size: 18px;"></div>
-    <br>
+
+    <div class="indicador-container">
+        <div class="card" id="usdCard">
+            <i class="fa-solid fa-dollar-sign"></i>
+            <h2>TRM (USD a COP)</h2>
+            <p id="usdValue">Cargando...</p>
+        </div>
+
+        <div class="card" id="eurCard">
+            <i class="fa-solid fa-euro-sign"></i>
+            <h2>Euro (EUR a COP)</h2>
+            <p id="eurValue">Cargando...</p>
+        </div>
+    </div>
+
     <button onclick="location.href='index.html'">⬅️ Volver al menú principal</button>
 
     <script>
@@ -22,12 +102,11 @@
                 const dataEUR = await responseEUR.json();
                 const euro = dataEUR.rates.COP;
 
-                document.getElementById("indicadores").innerHTML = `
-                    <p>💵 <strong>TRM (USD a COP):</strong> $${trm.toFixed(2)}</p>
-                    <p>💶 <strong>Euro (EUR a COP):</strong> $${euro.toFixed(2)}</p>
-                `;
+                document.getElementById("usdValue").textContent = `$${trm.toFixed(2)}`;
+                document.getElementById("eurValue").textContent = `$${euro.toFixed(2)}`;
             } catch (error) {
-                document.getElementById("indicadores").innerHTML = "❌ Error al cargar los indicadores.";
+                document.getElementById("usdValue").textContent = "❌ Error";
+                document.getElementById("eurValue").textContent = "❌ Error";
                 console.error(error);
             }
         }
