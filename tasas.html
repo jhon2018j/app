@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tasas de Cambio</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+    <h1>📈 Tasas de Cambio</h1>
+
+    <table id="tablaTasas" border="1" style="margin: auto; font-size: 18px;">
+        <thead>
+            <tr>
+                <th>Desde</th>
+                <th>Hacia</th>
+                <th>Tasa</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+
+    <br>
+    <button onclick="location.href='principal.html'">⬅️ Volver al menú principal</button>
+
+    <script>
+        async function cargarTasas() {
+            try {
+                const response = await fetch("https://api.exchangerate.host/latest?base=USD&symbols=EUR,COP");
+                const data = await response.json();
+                const tasaUsdCop = data.rates.COP;
+                const tasaUsdEur = data.rates.EUR;
+
+                const response2 = await fetch("https://api.exchangerate.host/latest?base=EUR&symbols=COP");
+                const data2 = await response2.json();
+                const tasaEurCop = data2.rates.COP;
+
+                const tbody = document.querySelector('#tablaTasas tbody');
+                tbody.innerHTML = `
+                    <tr><td>USD</td><td>COP</td><td>$${tasaUsdCop.toFixed(2)}</td></tr>
+                    <tr><td>USD</td><td>EUR</td><td>€${tasaUsdEur.toFixed(4)}</td></tr>
+                    <tr><td>EUR</td><td>COP</td><td>$${tasaEurCop.toFixed(2)}</td></tr>
+                `;
+            } catch (error) {
+                document.querySelector('#tablaTasas tbody').innerHTML = '<tr><td colspan="3">❌ Error al cargar tasas.</td></tr>';
+                console.error(error);
+            }
+        }
+
+        cargarTasas();
+    </script>
+</body>
+</html>

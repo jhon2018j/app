@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Indicadores Económicos</title>
+    <link rel="stylesheet" href="css/estilo.css">
+</head>
+<body>
+    <h1>📊 Indicadores Económicos</h1>
+    <div id="indicadores" style="font-size: 18px;"></div>
+    <br>
+    <button onclick="location.href='principal.html'">⬅️ Volver al menú principal</button>
+
+    <script>
+        async function obtenerIndicadores() {
+            try {
+                const responseUSD = await fetch("https://api.exchangerate.host/latest?base=USD&symbols=COP");
+                const dataUSD = await responseUSD.json();
+                const trm = dataUSD.rates.COP;
+
+                const responseEUR = await fetch("https://api.exchangerate.host/latest?base=EUR&symbols=COP");
+                const dataEUR = await responseEUR.json();
+                const euro = dataEUR.rates.COP;
+
+                document.getElementById("indicadores").innerHTML = `
+                    <p>💵 <strong>TRM (USD a COP):</strong> $${trm.toFixed(2)}</p>
+                    <p>💶 <strong>Euro (EUR a COP):</strong> $${euro.toFixed(2)}</p>
+                `;
+            } catch (error) {
+                document.getElementById("indicadores").innerHTML = "❌ Error al cargar los indicadores.";
+                console.error(error);
+            }
+        }
+
+        obtenerIndicadores();
+    </script>
+</body>
+</html>
