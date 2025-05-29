@@ -91,29 +91,35 @@
 
     <button onclick="location.href='index.html'">⬅️ Volver al menú principal</button>
 
-    <script>
+   <script>
         async function obtenerIndicadores() {
             try {
-const responseUSD = await fetch("https://v6.exchangerate-api.com/v6/6c1633cf9334ed56d5f2d664/latest/USD")
-));
+                // Obtener datos del USD a COP
+                const responseUSD = await fetch("https://v6.exchangerate-api.com/v6/6c1633cf9334ed56d5f2d664/latest/USD");
+                if (!responseUSD.ok) throw new Error(Error HTTP ${responseUSD.status});
                 const dataUSD = await responseUSD.json();
-                const trm = dataUSD.rates.COP;
+                console.log("USD Data:", dataUSD);
+                const trm = dataUSD.conversion_rates.COP || "No disponible";
 
-const responseUSD = await fetch("https://v6.exchangerate-api.com/v6/6c1633cf9334ed56d5f2d664/latest/USD")
-));
+                // Obtener datos del EUR a COP
+                const responseEUR = await fetch("https://v6.exchangerate-api.com/v6/6c1633cf9334ed56d5f2d664/latest/EUR");
+                if (!responseEUR.ok) throw new Error(Error HTTP ${responseEUR.status});
                 const dataEUR = await responseEUR.json();
-                const euro = dataEUR.rates.COP;
+                console.log("EUR Data:", dataEUR);
+                const euro = dataEUR.conversion_rates.COP || "No disponible";
 
-                document.getElementById("usdValue").textContent = `$${trm.toFixed(2)}`;
-                document.getElementById("eurValue").textContent = `$${euro.toFixed(2)}`;
+                // Mostrar valores en la UI
+                document.getElementById("usdValue").textContent = $${trm};
+                document.getElementById("eurValue").textContent = $${euro};
             } catch (error) {
-                document.getElementById("usdValue").textContent = "❌ Error";
-                document.getElementById("eurValue").textContent = "❌ Error";
-                console.error(error);
+                document.getElementById("usdValue").textContent = "❌ Error al cargar USD";
+                document.getElementById("eurValue").textContent = "❌ Error al cargar EUR";
+                console.error("Error obteniendo indicadores:", error);
             }
         }
 
-        obtenerIndicadores();
+        // Ejecutar la función cuando se cargue la página
+        document.addEventListener("DOMContentLoaded", obtenerIndicadores);
     </script>
 </body>
 </html>
