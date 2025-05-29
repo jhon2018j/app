@@ -4,22 +4,64 @@
     <meta charset="UTF-8">
     <title>Tasas de Cambio</title>
     <link rel="stylesheet" href="css/estilo.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f4f8;
+            text-align: center;
+            padding: 40px;
+        }
+        h1 {
+            font-size: 2.2rem;
+            color: #2c3e50;
+        }
+        .card {
+            display: inline-block;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin: 20px;
+            padding: 25px 30px;
+            font-size: 1.2rem;
+            width: 260px;
+        }
+        .card span {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #1e88e5;
+        }
+        button {
+            margin-top: 30px;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+    </style>
 </head>
 <body>
     <h1>📈 Tasas de Cambio</h1>
 
-    <table id="tablaTasas" border="1" style="margin: auto; font-size: 18px;">
-        <thead>
-            <tr>
-                <th>Desde</th>
-                <th>Hacia</th>
-                <th>Tasa</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    </table>
+    <div class="card" id="usd-cop">
+        <div>💵 USD a COP</div>
+        <span>Cargando...</span>
+    </div>
+    <div class="card" id="usd-eur">
+        <div>💵 USD a EUR</div>
+        <span>Cargando...</span>
+    </div>
+    <div class="card" id="eur-cop">
+        <div>💶 EUR a COP</div>
+        <span>Cargando...</span>
+    </div>
 
-    <br>
     <button onclick="location.href='index.html'">⬅️ Volver al menú principal</button>
 
     <script>
@@ -34,14 +76,11 @@
                 const data2 = await response2.json();
                 const tasaEurCop = data2.rates.COP;
 
-                const tbody = document.querySelector('#tablaTasas tbody');
-                tbody.innerHTML = `
-                    <tr><td>USD</td><td>COP</td><td>$${tasaUsdCop.toFixed(2)}</td></tr>
-                    <tr><td>USD</td><td>EUR</td><td>€${tasaUsdEur.toFixed(4)}</td></tr>
-                    <tr><td>EUR</td><td>COP</td><td>$${tasaEurCop.toFixed(2)}</td></tr>
-                `;
+                document.querySelector('#usd-cop span').textContent = `$${tasaUsdCop.toFixed(2)}`;
+                document.querySelector('#usd-eur span').textContent = `€${tasaUsdEur.toFixed(4)}`;
+                document.querySelector('#eur-cop span').textContent = `$${tasaEurCop.toFixed(2)}`;
             } catch (error) {
-                document.querySelector('#tablaTasas tbody').innerHTML = '<tr><td colspan="3">❌ Error al cargar tasas.</td></tr>';
+                document.querySelectorAll('.card span').forEach(e => e.textContent = '❌ Error');
                 console.error(error);
             }
         }
