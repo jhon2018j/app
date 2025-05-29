@@ -94,11 +94,13 @@
     <script>
         async function obtenerIndicadores() {
             try {
-const responseUSD = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent("https://api.exchangerate.host/latest?base=USD&symbols=COP"));
+const responseUSD = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent("AQUI_VA_TU_URL")
+));
                 const dataUSD = await responseUSD.json();
                 const trm = dataUSD.rates.COP;
 
-const responseUSD = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent("https://api.exchangerate.host/latest?base=USD&symbols=COP"));
+const responseUSD = await fetch("https://api.allorigins.win/raw?url=" + encodeURIComponent("AQUI_VA_TU_URL")
+));
                 const dataEUR = await responseEUR.json();
                 const euro = dataEUR.rates.COP;
 
