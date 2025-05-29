@@ -3,14 +3,59 @@
 <head>
     <meta charset="UTF-8">
     <title>Menú Principal</title>
-    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to right, #e0f7fa, #ffffff);
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 60px;
+            font-size: 2.8em;
+            color: #2c3e50;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 40px;
+            gap: 25px;
+        }
+
+        .menu a {
+            text-decoration: none;
+            color: #fff;
+            background-color: #3498db;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 22px;
+            width: 300px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .menu a:hover {
+            background-color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        .menu a i {
+            margin-right: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>🌎 Aplicación de Divisas</h1>
-    <ul style="font-size: 20px;">
-        <li><a href="indicadores.html">📊 Ver indicadores económicos</a></li>
-        <li><a href="compramoneda.html">💵 Comprar moneda extranjera</a></li>
-        <li><a href="tasas.html">📈 Ver tasas de cambio</a></li>
-    </ul>
+    <h1>🌍 Aplicación de Divisas</h1>
+
+    <div class="menu">
+        <a href="indicadores.html"><i class="fa-solid fa-chart-column"></i> Ver indicadores económicos</a>
+        <a href="compramoneda.html"><i class="fa-solid fa-money-bill-wave"></i> Comprar moneda extranjera</a>
+        <a href="tasas.html"><i class="fa-solid fa-arrow-right-arrow-left"></i> Ver tasas de cambio</a>
+    </div>
 </body>
 </html>
